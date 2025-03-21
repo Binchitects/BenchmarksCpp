@@ -1,4 +1,4 @@
-git submodule add https://github.com/google/benchmark.git third_party/benchmark
+git submodule add https://github.com/google/benchmark.git third_party/googlebenchmark
 git submodule add https://github.com/nlohmann/json.git third_party/json/nlohmann
 git submodule add https://github.com/ibireme/yyjson.git third_party/json/yyjson
 git submodule add https://github.com/chadaustin/sajson.git third_party/json/sajson
