@@ -3,10 +3,7 @@
 #include <string>
 
 // Include JSON libraries
-#include <yyjson/yyjson.h>
-#include "simdjson.h"
-#include "rapidjson/document.h"
-#include "nlohmann/json.hpp"
+#include <yyjson.h>
 
 // Sample JSON data
 const std::string json_data = R"({"name": "John", "age": 30, "city": "New York"})";
@@ -21,14 +18,4 @@ static void BM_Parsing_yyjson(benchmark::State& state) {
 }
 BENCHMARK(BM_Parsing_yyjson);
 
-// Benchmark simdjson
-static void BM_Parsing_simdjson(benchmark::State& state) {
-    simdjson::dom::parser parser;
-    for (auto _ : state) {
-        auto doc = parser.parse(json_data);
-        benchmark::DoNotOptimize(doc);
-    }
-}
-
-BENCHMARK(BM_Parsing_simdjson);
 BENCHMARK_MAIN();

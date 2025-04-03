@@ -8,23 +8,41 @@ set(CMAKE_C_STANDARD_REQUIRED 99)
 set(CMAKE_CXX_STANDARD_REQUIRED 11)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# Add Google Benchmark
-add_subdirectory(third_party/benchmark)
+# Define third-party directory
+set(THIRDPARTY_DIR ${CMAKE_BINARY_DIR}/third_party)
 
-# Add json libraries
-add_subdirectory(third_party/json/nlohmann)
-add_subdirectory(third_party/json/rapidjson)
-add_subdirectory(third_party/json/sajson)
-add_subdirectory(third_party/json/simdjson)
-add_subdirectory(third_party/json/yyjson)
+# Fetch simdjson
+include(FetchContent)
+FetchContent_Declare(
+    benchmark
+    GIT_REPOSITORY https://github.com/google/benchmark.git
+    GIT_TAG v1.9.2
+)
 
-# Add json include directory
-include_directories(third_party/yyjson/include)
+# Fetch Google Test (required by Google Benchmark)
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG v1.16.0
+)
+
+# Enable benchmark's CMake options
+set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "Disable benchmark tests" FORCE)
+set(BENCHMARK_ENABLE_GTEST_TESTS OFF CACHE BOOL "Disable benchmark's internal tests" FORCE)
+
+# Make them available
+FetchContent_MakeAvailable(benchmark googletest)
+
+# Fetch yyjson
+FetchContent_Declare(
+    yyjson
+    GIT_REPOSITORY https://github.com/ibireme/yyjson.git
+    GIT_TAG 0.10.0
+)
+FetchContent_MakeAvailable(yyjson)
 
 # Benchmark executable
-add_executable(json_benchmark benchmarks/benchmark_json.cpp)
+add_executable(json_benchmark benchmarks/json/benchmark_json.cpp)
 
-# Link Google Benchmark
-target_link_libraries(json_benchmark benchmark::benchmark)
-# Link yyjson to benchmark executable
-target_link_libraries(json_benchmark yyjson)
+# Link GoogleBenchmark
+target_link_libraries(json_benchmark PRIVATE benchmark::benchmark yyjson)
