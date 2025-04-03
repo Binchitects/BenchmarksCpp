@@ -47,8 +47,8 @@ for bar, time, speedup in zip(bars, real_times, speedup_factors):
 # Adjust layout to prevent label cutoff
 plt.subplots_adjust(left=0.25, right=0.99, top=0.95, bottom=0.05)
 
-# Save the plot
-plt.savefig('results/json/benchmark_real_time.png', dpi=300, bbox_inches='tight')
+# Save the plot as JPG
+plt.savefig('results/json/benchmark_real_time.jpg', dpi=300, bbox_inches='tight', format='jpg')
 plt.close()
 
-print("Plot has been saved as 'benchmark_real_time.png'")
+print("Plot has been saved as 'benchmark_real_time.jpg'")
