@@ -6,7 +6,7 @@
 static void BM_Parsing_JsonBox(benchmark::State& state) {
     for (auto _ : state) {
         JsonBox::Value value;
-        value.loadFromString(json_data);
+        value.loadFromString(smal_flat_json);
         benchmark::DoNotOptimize(value);
     }
 }

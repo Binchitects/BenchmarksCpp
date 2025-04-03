@@ -7,7 +7,7 @@ static void BM_Parsing_simdjson(benchmark::State& state) {
     simdjson::ondemand::parser parser;
     
     for (auto _ : state) {
-        simdjson::padded_string json_padded(json_data);
+        simdjson::padded_string json_padded(smal_flat_json);
         auto doc = parser.iterate(json_padded);
         if (doc.error()) {
             state.SkipWithError("Failed to parse JSON");

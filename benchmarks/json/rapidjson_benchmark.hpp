@@ -4,7 +4,7 @@
 #include <rapidjson/document.h>
 
 static void BM_Parsing_RapidJSON(benchmark::State& state) {
-    const char* json = json_data.c_str();
+    const char* json = smal_flat_json.c_str();
     for (auto _ : state) {
         rapidjson::Document doc;
         doc.Parse(json);

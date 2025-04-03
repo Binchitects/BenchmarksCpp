@@ -6,7 +6,7 @@
 // Benchmark nlohmann JSON
 static void BM_Parsing_nlohmann(benchmark::State& state) {
     for (auto _ : state) {
-        auto doc = nlohmann::json::parse(json_data);
+        auto doc = nlohmann::json::parse(smal_flat_json);
         benchmark::DoNotOptimize(doc);
     }
 }

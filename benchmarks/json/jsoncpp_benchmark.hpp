@@ -10,7 +10,7 @@ static void BM_Parsing_jsoncpp(benchmark::State& state) {
     std::string errs;
     
     for (auto _ : state) {
-        std::istringstream iss(json_data);
+        std::istringstream iss(smal_flat_json);
         bool parsingSuccessful = Json::parseFromStream(builder, iss, &root, &errs);
         if (!parsingSuccessful) {
             state.SkipWithError("Failed to parse JSON");
