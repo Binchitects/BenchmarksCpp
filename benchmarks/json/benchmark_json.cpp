@@ -3,7 +3,7 @@
 #include <string>
 
 // Include JSON libraries
-#include "yyjson/yyjson.h"
+#include <yyjson/yyjson.h>
 #include "simdjson.h"
 #include "rapidjson/document.h"
 #include "nlohmann/json.hpp"
@@ -29,6 +29,6 @@ static void BM_Parsing_simdjson(benchmark::State& state) {
         benchmark::DoNotOptimize(doc);
     }
 }
-BENCHMARK(BM_Parsing_simdjson);
 
+BENCHMARK(BM_Parsing_simdjson);
 BENCHMARK_MAIN();
