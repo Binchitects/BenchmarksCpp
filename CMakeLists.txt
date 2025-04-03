@@ -82,8 +82,15 @@ FetchContent_Declare(
     GIT_TAG 1.9.5
 )
 
+# Fetch picojson
+FetchContent_Declare(
+    picojson
+    GIT_REPOSITORY https://github.com/kazuho/picojson.git
+    GIT_TAG v1.3.0
+)
+
 # Finish fetches
-FetchContent_MakeAvailable(yyjson nlohmann_json rapidjson jsonbox simdjson jsoncpp)
+FetchContent_MakeAvailable(yyjson nlohmann_json rapidjson jsonbox simdjson jsoncpp picojson)
 
 # executable
 add_executable(json_benchmark benchmarks/json/benchmark_json.cpp)
@@ -92,6 +99,7 @@ add_executable(json_benchmark benchmarks/json/benchmark_json.cpp)
 target_include_directories(json_benchmark PRIVATE ${nlohmann_json_SOURCE_DIR}/single_include)
 target_include_directories(json_benchmark PRIVATE ${rapidjson_SOURCE_DIR}/include)
 target_include_directories(json_benchmark PRIVATE ${jsoncpp_SOURCE_DIR}/include)
+target_include_directories(json_benchmark PRIVATE ${picojson_SOURCE_DIR})
 
 # link libraries
 target_link_libraries(json_benchmark PRIVATE benchmark::benchmark yyjson JsonBox simdjson jsoncpp_lib)
