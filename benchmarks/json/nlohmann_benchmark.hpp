@@ -1,4 +1,6 @@
-#include "benchmark.hpp"
+#pragma once
+
+#include "benchmark_sfx.hpp"
 #include <nlohmann/json.hpp>
 
 // Benchmark nlohmann JSON
@@ -8,4 +10,4 @@ static void BM_Parsing_nlohmann(benchmark::State& state) {
         benchmark::DoNotOptimize(doc);
     }
 }
-BENCHMARK(BM_Parsing_nlohmann);
+BENCHMARK(BM_Parsing_nlohmann)->Name("JSON_Parsing/nlohmann");
