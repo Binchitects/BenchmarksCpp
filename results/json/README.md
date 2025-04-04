@@ -81,6 +81,11 @@ We will measure the following metrics for each test case:
 6. Correctness
    * Ensures that all libraries produce the same output.
 
+
+# Scoring System
+
+In each scenario, the worst gets one point, and the others get a multiple of that based on how much better they performed, and finally, the sum of the points of the different scenarios is considered in the final score.
+
 # Results
 
 ## Overall Scoring
