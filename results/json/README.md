@@ -83,6 +83,10 @@ We will measure the following metrics for each test case:
 
 # Results
 
+## Overall Scoring
+
+![JSON Parsing Score](./charts/overall_library_scores.jpg)
+
 ## Parsing Speed
 
 ![Small JSON Parsing](./images/SmallJSONParsing.jpg)
