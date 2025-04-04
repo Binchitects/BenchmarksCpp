@@ -3,11 +3,22 @@
 #include "benchmark_sfx.hpp"
 #include <yyjson.h>
 
-static void BM_Parsing_yyjson(benchmark::State& state) {
+static void BM_Parsing_yyjson(benchmark::State& state, const std::string& data) {
     for (auto _ : state) {
-        yyjson_doc* doc = yyjson_read(smal_flat_json.c_str(), smal_flat_json.size(), YYJSON_READ_NOFLAG);
+        yyjson_doc* doc = yyjson_read(data.c_str(), data.size(), YYJSON_READ_NOFLAG);
         benchmark::DoNotOptimize(doc);
         yyjson_doc_free(doc);
     }
 }
-BENCHMARK(BM_Parsing_yyjson)->Name("JSON_Parsing/yyjson");
+
+struct YYJsonParsingBenchmarkRegistrar {
+    YYJsonParsingBenchmarkRegistrar() {
+        for (const auto& [name, data] : benchmark_data) {
+            benchmark::RegisterBenchmark(("ParsingJson/"+name+"/yyjson").c_str(), [data](benchmark::State& state) {
+                BM_Parsing_yyjson(state, data);
+            })->Iterations(iterations);
+        }
+    }
+};
+
+static YYJsonParsingBenchmarkRegistrar yyjson_parsing;

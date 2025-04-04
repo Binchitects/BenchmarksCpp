@@ -3,11 +3,22 @@
 #include "benchmark_sfx.hpp"
 #include <JsonBox.h>
 
-static void BM_Parsing_JsonBox(benchmark::State& state) {
+static void BM_Parsing_JsonBox(benchmark::State& state, const std::string& data) {
     for (auto _ : state) {
         JsonBox::Value value;
-        value.loadFromString(smal_flat_json);
+        value.loadFromString(data);
         benchmark::DoNotOptimize(value);
     }
 }
-BENCHMARK(BM_Parsing_JsonBox)->Name("JSON_Parsing/jsonbox");
+
+struct JsonBoxParsingBenchmarkRegistrar {
+    JsonBoxParsingBenchmarkRegistrar() {
+        for (const auto& [name, data] : benchmark_data) {
+            benchmark::RegisterBenchmark(("ParsingJson/"+name+"/jsonbox").c_str(), [data](benchmark::State& state) {
+                BM_Parsing_JsonBox(state, data);
+            })->Iterations(iterations);
+        }
+    }
+};
+
+static JsonBoxParsingBenchmarkRegistrar jsonbox_parsing;

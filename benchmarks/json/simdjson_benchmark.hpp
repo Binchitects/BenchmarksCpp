@@ -3,17 +3,29 @@
 #include "benchmark_sfx.hpp"
 #include <simdjson.h>
 
-static void BM_Parsing_simdjson(benchmark::State& state) {
-    simdjson::ondemand::parser parser;
-    
+static void BM_Parsing_simdjson(benchmark::State& state, const std::string& data) {
     for (auto _ : state) {
-        simdjson::padded_string json_padded(smal_flat_json);
+        simdjson::ondemand::parser parser;
+        simdjson::padded_string json_padded(data);
         auto doc = parser.iterate(json_padded);
         if (doc.error()) {
             state.SkipWithError("Failed to parse JSON");
             continue;
         }
+        benchmark::DoNotOptimize(parser);
+        benchmark::DoNotOptimize(json_padded);
         benchmark::DoNotOptimize(doc);
     }
 }
-BENCHMARK(BM_Parsing_simdjson)->Name("JSON_Parsing/simdjson");
+
+struct SIMDJsonParsingBenchmarkRegistrar {
+    SIMDJsonParsingBenchmarkRegistrar() {
+        for (const auto& [name, data] : benchmark_data) {
+            benchmark::RegisterBenchmark(("ParsingJson/"+name+"/simdjson").c_str(), [data](benchmark::State& state) {
+                BM_Parsing_simdjson(state, data);
+            })->Iterations(iterations);
+        }
+    }
+};
+
+static SIMDJsonParsingBenchmarkRegistrar simdjson_parsing;
