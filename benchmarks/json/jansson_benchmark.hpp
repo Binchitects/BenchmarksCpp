@@ -15,7 +15,7 @@ static void BM_Parsing_Jansson(benchmark::State& state, const std::string& data)
 struct JanssonParsingBenchmarkRegistrar {
     JanssonParsingBenchmarkRegistrar() {
         for (const auto& [name, data] : benchmark_data) {
-            benchmark::RegisterBenchmark(("ParsingJson/"+name+"/jansson").c_str(), [data](benchmark::State& state) {
+            benchmark::RegisterBenchmark(("ParsingJson/"+name+"/jansson").c_str(), [&data](benchmark::State& state) {
                 BM_Parsing_Jansson(state, data);
             })->Iterations(iterations);
         }

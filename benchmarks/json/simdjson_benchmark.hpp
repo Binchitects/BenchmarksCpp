@@ -21,7 +21,7 @@ static void BM_Parsing_simdjson(benchmark::State& state, const std::string& data
 struct SIMDJsonParsingBenchmarkRegistrar {
     SIMDJsonParsingBenchmarkRegistrar() {
         for (const auto& [name, data] : benchmark_data) {
-            benchmark::RegisterBenchmark(("ParsingJson/"+name+"/simdjson").c_str(), [data](benchmark::State& state) {
+            benchmark::RegisterBenchmark(("ParsingJson/"+name+"/simdjson").c_str(), [&data](benchmark::State& state) {
                 BM_Parsing_simdjson(state, data);
             })->Iterations(iterations);
         }

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.31)
 
 # Set policy to honor visibility properties for all target types
 cmake_policy(SET CMP0063 NEW)
@@ -8,7 +8,7 @@ set(This BenchmarksCpp)
 project(${This} C CXX)
 
 set(CMAKE_C_STANDARD_REQUIRED 99)
-set(CMAKE_CXX_STANDARD_REQUIRED 14)
+set(CMAKE_CXX_STANDARD_REQUIRED 17)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Define third-party directory
@@ -82,6 +82,8 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
     GIT_TAG 1.9.5
 )
+set(JSONCPP_WITH_TESTS OFF CACHE BOOL "" FORCE)
+set(JSONCPP_WITH_POST_BUILD_UNITTEST OFF CACHE BOOL "" FORCE)
 
 # Fetch picojson
 FetchContent_Declare(

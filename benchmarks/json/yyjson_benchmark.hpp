@@ -14,7 +14,7 @@ static void BM_Parsing_yyjson(benchmark::State& state, const std::string& data) 
 struct YYJsonParsingBenchmarkRegistrar {
     YYJsonParsingBenchmarkRegistrar() {
         for (const auto& [name, data] : benchmark_data) {
-            benchmark::RegisterBenchmark(("ParsingJson/"+name+"/yyjson").c_str(), [data](benchmark::State& state) {
+            benchmark::RegisterBenchmark(("ParsingJson/"+name+"/yyjson").c_str(), [&data](benchmark::State& state) {
                 BM_Parsing_yyjson(state, data);
             })->Iterations(iterations);
         }

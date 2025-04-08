@@ -25,7 +25,7 @@ static void BM_Parsing_jsoncpp(benchmark::State& state, const std::string& data)
 struct JsonCppParsingBenchmarkRegistrar {
     JsonCppParsingBenchmarkRegistrar() {
         for (const auto& [name, data] : benchmark_data) {
-            benchmark::RegisterBenchmark(("ParsingJson/"+name+"/jsoncpp").c_str(), [data](benchmark::State& state) {
+            benchmark::RegisterBenchmark(("ParsingJson/"+name+"/jsoncpp").c_str(), [&data](benchmark::State& state) {
                 BM_Parsing_jsoncpp(state, data);
             })->Iterations(iterations);
         }
