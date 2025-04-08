@@ -18,7 +18,6 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/simdjson/simdjson.git
     GIT_TAG v3.12.3
 )
-set(SIMDJSON_FORCE_FALLBACK ON CACHE BOOL "Disable SIMD features of simdjson")
 
 # Fetch rapid json
 FetchContent_Declare(
