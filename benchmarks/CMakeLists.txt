@@ -1,3 +1,9 @@
+cmake_minimum_required(VERSION 3.30)
+
+set(CMAKE_C_STANDARD_REQUIRED 99)
+set(CMAKE_CXX_STANDARD_REQUIRED 17)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # Fetch Google Benchmark
 include(FetchContent)
 FetchContent_Declare(

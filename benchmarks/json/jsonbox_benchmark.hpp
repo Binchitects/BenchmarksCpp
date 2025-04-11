@@ -13,7 +13,9 @@ static void BM_Parsing_JsonBox(benchmark::State& state, const std::string& data)
 
 struct JsonBoxParsingBenchmarkRegistrar {
     JsonBoxParsingBenchmarkRegistrar() {
-        for (const auto& [name, data] : benchmark_data) {
+        for (const auto& test_case : benchmark_data) {
+            std::string name = test_case.first;
+            std::string data = test_case.second;
             benchmark::RegisterBenchmark(("ParsingJson/"+name+"/jsonbox").c_str(), [&data](benchmark::State& state) {
                 BM_Parsing_JsonBox(state, data);
             })->Iterations(iterations);

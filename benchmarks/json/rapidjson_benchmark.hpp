@@ -19,7 +19,9 @@ static void BM_Parsing_RapidJSON(benchmark::State& state, const std::string& dat
 
 struct RapidJSONParsingBenchmarkRegistrar {
     RapidJSONParsingBenchmarkRegistrar() {
-        for (const auto& [name, data] : benchmark_data) {
+        for (const auto& test_case : benchmark_data) {
+            std::string name = test_case.first;
+            std::string data = test_case.second;
             benchmark::RegisterBenchmark(("ParsingJson/"+name+"/rapidjson").c_str(), [&data](benchmark::State& state) {
                 BM_Parsing_RapidJSON(state, data);
             })->Iterations(iterations);
